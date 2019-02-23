@@ -1,14 +1,9 @@
-import socket
 import socketserver
+from request_handler import HttpHandler
 
-import requests
-import json
-import request_handler
-import request_handler
+Handler = HttpHandler
 
-Handler = request_handler
-
-with socketserver.TCPServer(("", 8888), Handler) as httpd:
+with socketserver.ThreadingTCPServer(("", 8888), Handler) as httpd:
     print("serving at port", 8888)
     httpd.serve_forever()
 
