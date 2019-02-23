@@ -17,15 +17,24 @@
 			}
 		</style>
 		<script>
-			function httpGetAsync(theUrl, callback)
+			function httpGetAsync(number)
 			{
     			var xmlHttp = new XMLHttpRequest();
     			xmlHttp.onreadystatechange = function() 
     			{ 
+    				console.log(this.responseText)
     			    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    			    {
+    			    	console.log(this.responseText)
     			        document.getElementById("demo").innerHTML = this.responseText;
+    			    }
     			}
-    			xmlHttp.open("GET", "https://localhost:8888/test?cifra=2", true); // true for asynchronous 
+    			if (number == 1)
+    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=1", true); 
+    			if (number == 2)
+    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=2", true); 
+    			if (number == 3)
+    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=3", true); 
     			xmlHttp.send(null);
 			}
 		</script>
@@ -34,10 +43,10 @@
 
 		<h2>CSS Buttons</h2>
 
-		<a href="#" class="button">Link Button</a>
-	
-		<button class="button" onclick="httpGetAsync()">Button</button>
-		<input type="button" class="button" value="Input Button">
+		<button class="button" onclick="httpGetAsync(1)">Button</button>
+		<button class="button" onclick="httpGetAsync(2)">Get a cat fact!</button>
+		<button class="button" onclick="httpGetAsync(3)">Button</button>
+
 		<br>
 		<br>
 		<p id="demo">A Paragraph</p>

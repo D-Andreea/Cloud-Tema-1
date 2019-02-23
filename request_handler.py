@@ -17,19 +17,27 @@ class HttpHandler(BaseHTTPRequestHandler):
         if rpath == '/test':
             print(args["cifra"])
 
-        # self.send_response(r.status_code)
-        # self.send_header('Content-type', 'text-html')
-        # self.end_headers()
-        self.wfile.write(b"great job!")
+        answer, status_code = handle(int(args["cifra"][0]))
+
+        self.send_response(status_code)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(answer.encode())
 
 
 def handle(request):
     print("Client request: ", request)
-    get_cat_fact()
-    return "correct request"
+    if request == 1:
+        return "EEEEE MACARENA", 200
+    elif request == 2:
+        return get_cat_fact()
+    elif request == 3:
+        return "MARIA IOANA TU ESTI CAMPIOANA", 200
+    else:
+        return "correct request", 200
 
 
-def get_cat_fact(self):
+def get_cat_fact():
     URL = "https://cat-fact.herokuapp.com/facts/random"
 
     # defining a params dict for the parameters to be sent to the API
@@ -39,8 +47,13 @@ def get_cat_fact(self):
     r = requests.get(url=URL, params=PARAMS)
 
     # extracting data in json format
-    print(r)
+    #print(r)
     if r.status_code != 200:
         print(r.content)
     data = r.json()
     print(data)
+    return data['text'], 200
+
+
+#def get_fengshui():
+#    URL = "    https://fengshui-api.com/api/v1/findChineseSignOfYear?token=Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55&year=2013&month=8&day=2&gender=0"
