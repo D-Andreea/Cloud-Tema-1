@@ -17,18 +17,13 @@
 			}
 		</style>
 		<script>
-			function myFunction() 
-			{
-				document.getElementById("demo").innerHTML = "Paragraph changed.";
-			}
-
 			function httpGetAsync(theUrl, callback)
 			{
     			var xmlHttp = new XMLHttpRequest();
     			xmlHttp.onreadystatechange = function() 
     			{ 
     			    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-    			        callback(xmlHttp.responseText);
+    			        document.getElementById("demo").innerHTML = this.responseText;
     			}
     			xmlHttp.open("GET", "https://localhost:8888", true); // true for asynchronous 
     			xmlHttp.send(null);
@@ -43,6 +38,9 @@
 	
 		<button class="button" onclick="httpGetAsync()">Button</button>
 		<input type="button" class="button" value="Input Button">
+		<br>
+		<br>
+		<p id="demo">A Paragraph</p>
 
 	</body>
 </html>
