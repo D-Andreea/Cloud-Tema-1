@@ -28,7 +28,7 @@ class HttpHandler(BaseHTTPRequestHandler):
 def handle(request):
     print("Client request: ", request)
     if request == 1:
-        return "EEEEE MACARENA", 200
+        return get_fengshui()
     elif request == 2:
         return get_cat_fact()
     elif request == 3:
@@ -55,5 +55,16 @@ def get_cat_fact():
     return data['text'], 200
 
 
-#def get_fengshui():
-#    URL = "    https://fengshui-api.com/api/v1/findChineseSignOfYear?token=Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55&year=2013&month=8&day=2&gender=0"
+def get_fengshui():
+    URL = "https://fengshui-api.com/api/v1/findChineseSignOfYear"
+    PARAMS = {'token': 'Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55', 'year': 2013, 'month': 8, 'day': 2, 'gender': 0}
+    r = requests.get(url=URL, params=PARAMS)
+    print(r.content)
+    if r.status_code != 200:
+        return 'something went wrong', 400
+    data = r.json()
+    print(data)
+    return 'fengshui', 200
+    #return data['text'], 200
+
+
