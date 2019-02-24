@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
@@ -32,7 +34,7 @@ def handle(request):
     elif request == 2:
         return get_cat_fact()
     elif request == 3:
-        return "MARIA IOANA TU ESTI CAMPIOANA", 200
+        return get_date_fact()
     else:
         return "correct request", 200
 
@@ -57,7 +59,7 @@ def get_cat_fact():
 
 def get_fengshui():
     URL = "https://fengshui-api.com/api/v1/findChineseSignOfYear"
-    PARAMS = {'token': 'Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55', 'year': 2013, 'month': 8, 'day': 2, 'gender': 0}
+    PARAMS = {'token': 'Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55', 'year': 1998, 'month': 8, 'day': 2, 'gender': 0}
     r = requests.get(url=URL, params=PARAMS)
     print(r.content)
     if r.status_code != 200:
@@ -68,3 +70,11 @@ def get_fengshui():
     #return data['text'], 200
 
 
+def get_date_fact():
+    now = datetime.datetime.now()
+    URL = "http://numbersapi.com/" + str(now.month) + "/" + str(now.day) + "/date"
+    r = requests.get(url=URL)
+    data = r.content.decode('utf8').replace("'", '"')
+    if r.status_code != 200:
+        return "something went wrong", 400
+    return data, 200
