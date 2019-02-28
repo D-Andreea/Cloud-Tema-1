@@ -19,6 +19,14 @@ class HttpHandler(BaseHTTPRequestHandler):
         if rpath == '/test':
             print(args["cifra"])
 
+        if rpath == '/metrics':
+            answer = database.select_metrics()
+            self.send_response(200)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(answer.encode())
+            return
+
         answer, status_code = handle(int(args["cifra"][0]))
 
         self.send_response(status_code)
@@ -43,6 +51,7 @@ def get_cat_fact():
     PARAMS = {'animal': 'cat', 'amount': 1}
     r = requests.get(url=URL, params=PARAMS)
     if r.status_code != 200:
+        database.insert_metrics('cat fact', 'smth went wrong', '400', str(r.elapsed.total_seconds()))
         return 'something went wrong', 400
     data = r.json()
     # print(data)
@@ -56,6 +65,7 @@ def get_fengshui():
     r = requests.get(url=URL, params=PARAMS, verify=False)
     print(r.content)
     if r.status_code != 200:
+        database.insert_metrics('fengshui', 'smth went wrong', '400', str(r.elapsed.total_seconds()))
         return 'something went wrong', 400
     data = r.json()
     # print(data)
@@ -71,6 +81,7 @@ def get_date_fact():
     r = requests.get(url=URL)
     data = r.content.decode('utf8').replace("'", '"')
     if r.status_code != 200:
+        database.insert_metrics('date fact', 'smth went wrong', '400', str(r.elapsed.total_seconds()))
         return "something went wrong", 400
     database.insert_metrics('date fact', data, '200', str(r.elapsed.total_seconds()))
     return data, 200
