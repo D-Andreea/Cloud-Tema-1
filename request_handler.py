@@ -60,13 +60,13 @@ def get_cat_fact():
 def get_fengshui():
     URL = "https://fengshui-api.com/api/v1/findChineseSignOfYear"
     PARAMS = {'token': 'Y2fW484NC0F8J141Fdbj60ae5FD05502E7AgCc55', 'year': 1998, 'month': 8, 'day': 2, 'gender': 0}
-    r = requests.get(url=URL, params=PARAMS)
+    r = requests.get(url=URL, params=PARAMS, verify=False)
     print(r.content)
     if r.status_code != 200:
         return 'something went wrong', 400
     data = r.json()
     print(data)
-    return 'fengshui', 200
+    return data['result'], 200
     #return data['text'], 200
 
 
