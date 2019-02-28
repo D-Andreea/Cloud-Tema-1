@@ -1,8 +1,5 @@
 import sqlite3
 
-#conn = sqlite3.connect('example.db')
-#database = conn.cursor()
-
 
 def initialize_database():
     conn = sqlite3.connect('metrics.db')
@@ -17,7 +14,6 @@ def insert_metrics(api, content, status, time):
     database = conn.cursor()
     values = (api, content, status, time)
     database.execute("INSERT INTO metrics VALUES (?,?,?,?)", values)
-    #database.execute("INSERT INTO metrics VALUES (" + api + ", " + content + ", " + status + ", " + time + ")")
     conn.commit()
     conn.close()
 
@@ -49,6 +45,6 @@ def select_metrics():
     answer = """Min time: """ + str(min) + """
             <br> Max time: """ + str(max) + """
             <br> Avg time: """ + str(avg) + """
-            <br> Status code 200: """ + str(status_code_count) 
+            <br> Status code 200: """ + str(status_code_count)
     conn.close()
     return answer
