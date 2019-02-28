@@ -17,7 +17,7 @@
 			}
 		</style>
 		<script>
-			function httpGetAsync(number)
+			function httpGetAsync()
 			{
     			var xmlHttp = new XMLHttpRequest();
     			xmlHttp.onreadystatechange = function() 
@@ -29,23 +29,16 @@
     			        document.getElementById("demo").innerHTML = this.responseText;
     			    }
     			}
-    			if (number == 1)
-    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=1", true); 
-    			if (number == 2)
-    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=2", true); 
-    			if (number == 3)
-    				xmlHttp.open("GET", "http://localhost:8888/test?cifra=3", true); 
+    			xmlHttp.open("GET", "http://localhost:8888/metrics", true); 
     			xmlHttp.send(null);
 			}
 		</script>
 	</head>
 	<body>
 
-		<h2>APIs for fun!</h2>
+		<h2>Metrics</h2>
 
-		<button class="button" onclick="httpGetAsync(2)">Get a cat fact!</button>
-		<button class="button" onclick="httpGetAsync(1)">See your fengshui!</button>
-		<button class="button" onclick="httpGetAsync(3)">Get today's fact!</button>
+		<button class="button" onclick="httpGetAsync()">Update metrics!</button>
 
 		<br>
 		<br>
