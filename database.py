@@ -1,11 +1,22 @@
-import mysql.connector
+import sqlite3
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="yourusername",
-  passwd="yourpassword"
-)
+#conn = sqlite3.connect('example.db')
+#database = conn.cursor()
 
-mycursor = mydb.cursor()
 
-mycursor.execute("CREATE TABLE metrics (api VARCHAR(255), content VARCHAR(255), )")
+def initialize_database():
+    conn = sqlite3.connect('metrics.db')
+    database = conn.cursor()
+    database.execute('''DROP TABLE metrics''')
+    database.execute('''CREATE TABLE metrics
+             (api text, content text, status_code text, time text)''')
+
+
+def insert_metrics(api, content, status, time):
+    conn = sqlite3.connect('metrics.db')
+    database = conn.cursor()
+    values = (api, content, status, time)
+    database.execute("INSERT INTO metrics VALUES (?,?,?,?)", values)
+    #database.execute("INSERT INTO metrics VALUES (" + api + ", " + content + ", " + status + ", " + time + ")")
+    conn.commit()
+    conn.close()

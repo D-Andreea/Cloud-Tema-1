@@ -1,13 +1,16 @@
 import socketserver
 from request_handler import HttpHandler
+import database
 
 Handler = HttpHandler
 
+database.initialize_database()
 with socketserver.ThreadingTCPServer(("", 8888), Handler) as httpd:
     print("serving at port", 8888)
     httpd.serve_forever()
 
 
+database.conn.close()
 
 
 # # api-endpoint

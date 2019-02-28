@@ -3,6 +3,7 @@ import datetime
 import requests
 from http.server import BaseHTTPRequestHandler
 from urllib import parse
+import database
 
 
 class HttpHandler(BaseHTTPRequestHandler):
@@ -15,7 +16,6 @@ class HttpHandler(BaseHTTPRequestHandler):
         else:
             rpath = self.path
         print(args)
-
         if rpath == '/test':
             print(args["cifra"])
 
@@ -28,7 +28,6 @@ class HttpHandler(BaseHTTPRequestHandler):
 
 
 def handle(request):
-    print("Client request: ", request)
     if request == 1:
         return get_fengshui()
     elif request == 2:
@@ -41,19 +40,13 @@ def handle(request):
 
 def get_cat_fact():
     URL = "https://cat-fact.herokuapp.com/facts/random"
-
-    # defining a params dict for the parameters to be sent to the API
     PARAMS = {'animal': 'cat', 'amount': 1}
-
-    # sending get request and saving the response as response object
     r = requests.get(url=URL, params=PARAMS)
-
-    # extracting data in json format
-    #print(r)
     if r.status_code != 200:
-        print(r.content)
+        return 'something went wrong', 400
     data = r.json()
-    print(data)
+    # print(data)
+    database.insert_metrics('cat fact', data['text'], '200', str(r.elapsed.total_seconds()))
     return data['text'], 200
 
 
@@ -65,9 +58,11 @@ def get_fengshui():
     if r.status_code != 200:
         return 'something went wrong', 400
     data = r.json()
-    print(data)
+    # print(data)
+
+    database.insert_metrics('fengshui', data['result'], '200', str(r.elapsed.total_seconds()))
+
     return data['result'], 200
-    #return data['text'], 200
 
 
 def get_date_fact():
@@ -77,4 +72,5 @@ def get_date_fact():
     data = r.content.decode('utf8').replace("'", '"')
     if r.status_code != 200:
         return "something went wrong", 400
+    database.insert_metrics('date fact', data, '200', str(r.elapsed.total_seconds()))
     return data, 200
