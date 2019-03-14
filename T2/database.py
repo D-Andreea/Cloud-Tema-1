@@ -98,6 +98,7 @@ def insert_record(query, values):
         db.execute(query, values)
         connection.commit()
         connection.close()
+        return 200
     except Exception as e:
         return 409
 
@@ -120,3 +121,27 @@ def interogate_database(query):
         return 400
 
 
+def delete_record(query, value):
+    try:
+        connection = sqlite3.connect('database.db')
+        db = connection.cursor()
+        db.execute(query, value)
+        connection.commit()
+        connection.close()
+        return 200
+    except Exception as e:
+        return 404
+
+
+def update_record(query):
+    try:
+        connection = sqlite3.connect('database.db')
+        db = connection.cursor()
+        db.execute(query)
+        connection.commit()
+        connection.close()
+        print('aaaa')
+        return 200
+    except Exception as e:
+        print(e)
+        return 409

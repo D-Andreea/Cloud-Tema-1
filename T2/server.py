@@ -2,8 +2,10 @@ import json
 from http.server import BaseHTTPRequestHandler
 
 import database
+import helper_delete
 import helper_get
 import helper_post
+import helper_put
 
 
 class API(BaseHTTPRequestHandler):
@@ -74,3 +76,61 @@ class API(BaseHTTPRequestHandler):
                     self.send_header('Access-Control-Allow-Origin', '*')
                     self.end_headers()
                     self.wfile.write(answer.encode())
+
+    def do_DELETE(self):
+        parameters = self.path.split('/')
+        parameters = list(filter(lambda a: a != "", parameters))
+
+        query, value = helper_delete.build_delete_select(parameters)
+        check_query, table = helper_get.build_get_select(parameters)
+        if query == 0:
+            status_code = 405
+            answer = 'Bad request'
+        else:
+            print(query)
+            check = database.interogate_database(check_query)
+            print(check)
+            if check == 400:
+                status_code = 400
+                answer = 'Bad request'
+            elif len(check) < 1:
+                status_code = 404
+                answer = 'Record not found'
+            else:
+                status_code = database.delete_record(query, value)
+                answer = 'Record deleted'
+
+        self.send_response(status_code)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(answer.encode())
+
+    def do_PUT(self):
+        parameters = self.path.split('/')
+        parameters = list(filter(lambda a: a != "", parameters))
+
+        try:
+            arguments = json.loads(self.rfile.read(int(self.headers['content-length'])).decode())
+        except Exception as e:
+            print(e)
+            self.send_response(400)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(b'Bad request')
+        query, table = helper_put.build_put_select(parameters)
+        if query == 0:
+            self.send_response(404)
+            self.wfile.write(b'Not found')
+        else:
+            query = helper_put.build_update_query(arguments, table, parameters[1])
+            print(query)
+            status_code = database.update_record(query)
+            if status_code == 200:
+                message = 'Updated'
+            else:
+                message = 'Bad request'
+        self.send_response(status_code)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(message.encode())
+
