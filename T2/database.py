@@ -92,11 +92,14 @@ def insert_record_new():
 
 
 def insert_record(query, values):
-    connection = sqlite3.connect('database.db')
-    db = connection.cursor()
-    db.execute(query, values)
-    connection.commit()
-    connection.close()
+    try:
+        connection = sqlite3.connect('database.db')
+        db = connection.cursor()
+        db.execute(query, values)
+        connection.commit()
+        connection.close()
+    except Exception as e:
+        return 409
 
 
 def db_main():
@@ -106,11 +109,14 @@ def db_main():
 
 
 def interogate_database(query):
-    connection = sqlite3.connect('database.db')
-    db = connection.cursor()
-    db.execute(query)
-    result_set = db.fetchall()
-    connection.close()
-    return result_set
+    try:
+        connection = sqlite3.connect('database.db')
+        db = connection.cursor()
+        db.execute(query)
+        result_set = db.fetchall()
+        connection.close()
+        return result_set
+    except Exception as e:
+        return 400
 
 

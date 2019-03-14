@@ -1,4 +1,4 @@
-def build_get_select(parameters):
+def build_post_select(parameters):
     if len(parameters) == 1:
         if parameters[0] == 'doctori':
             return 'SELECT * FROM ' + parameters[0], 'doctori'
@@ -35,42 +35,24 @@ def build_get_select(parameters):
         return 0, 0
 
 
-def transform_array_to_dict(array, table):
-    dictionary = dict()
-    print(array)
+def build_post_insert_query(arguments, table):
     if table == 'doctori':
-        dictionary['doctorid'] = array[0]
-        dictionary['nume'] = array[1]
-        dictionary['prenume'] = array[2]
-        dictionary['specializare'] = array[3]
+        doctor = "INSERT INTO doctori VALUES (?, ?, ?, ?)"
+        values = tuple()
+        for value in arguments.values():
+            values += (value,)
+        return doctor, values
     elif table == 'pacienti':
-        dictionary['pacientid'] = array[0]
-        dictionary['nume'] = array[1]
-        dictionary['prenume'] = array[2]
-        dictionary['adresa'] = array[3]
+        pacient = "INSERT INTO pacienti VALUES (?, ?, ?, ?)"
+        values = tuple()
+        for value in arguments.values():
+            values += (value,)
+        return pacient, values
     elif table == 'programari':
-        dictionary['programareid'] = array[0]
-        dictionary['costconsultatie'] = array[1]
-        dictionary['doctorid'] = array[2]
-        dictionary['pacientid'] = array[3]
-    elif table == 'prog-doctori':
-        dictionary['programareid'] = array[0]
-        dictionary['costconsultatie'] = array[1]
-        dictionary['doctorid'] = array[2]
-        dictionary['pacientid'] = array[3]
-        dictionary['doctorid'] = array[0]
-        dictionary['nume'] = array[1]
-        dictionary['prenume'] = array[2]
-        dictionary['specializare'] = array[3]
-    elif table == 'prog-pacienti':
-        dictionary['programareid'] = array[0]
-        dictionary['costconsultatie'] = array[1]
-        dictionary['doctorid'] = array[2]
-        dictionary['pacientid'] = array[3]
-        dictionary['pacientid'] = array[0]
-        dictionary['nume'] = array[1]
-        dictionary['prenume'] = array[2]
-        dictionary['adresa'] = array[3]
+        programare = "INSERT INTO programari VALUES (?, ?, ?, ?)"
+        values = tuple()
+        for value in arguments.values():
+            values += (value,)
+        return programare, values
     else:
-        dictionary['ERROR: '] = 'Something went wrong'
-    return dictionary
+        return 'Bad request', 400
