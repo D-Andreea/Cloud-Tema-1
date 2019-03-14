@@ -20,6 +20,11 @@ class API(BaseHTTPRequestHandler):
         else:
             answer_array = database.interogate_database(query)
             answer = list()
+            if answer_array == 400:
+                self.send_response(400)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(b'Bad request')
             for line in answer_array:
                 answer_dict = helper_get.transform_array_to_dict(line, table)
                 answer.append(answer_dict)

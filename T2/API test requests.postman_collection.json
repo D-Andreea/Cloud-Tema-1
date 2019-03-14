@@ -1,0 +1,588 @@
+{
+	"info": {
+		"_postman_id": "a2a35c70-4ec7-49f5-94e9-a46b34455019",
+		"name": "API test requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Put pacient 221",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"prenume\" : \"Miruna\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/pacienti/221?",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"pacienti",
+						"221"
+					],
+					"query": [
+						{
+							"key": "1",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "prenume = Miruna"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pacient 221",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : 338,\n\"nume\" : 200,\n\"prenume\" : 300,\n\"specializare\" : 400\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/pacienti/221?",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"pacienti",
+						"221"
+					],
+					"query": [
+						{
+							"key": "1",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pacienti - all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"prenume\" : \"Miruna\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/pacienti/?",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"pacienti",
+						""
+					],
+					"query": [
+						{
+							"key": "1",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get doctori - all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"prenume\" : \"Miruna\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/?",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						""
+					],
+					"query": [
+						{
+							"key": "1",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get programari - all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"prenume\" : \"Miruna\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/?",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						""
+					],
+					"query": [
+						{
+							"key": "1",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get doctor asignat la programarea cu id 333",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333/doctori",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333",
+						"doctori"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pacientul care are programarea cu id 333",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333/pacienti",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333",
+						"pacienti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get doctori/pacienti invalid path",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/pacienti",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						"pacienti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post bad request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/doctorii",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctorii"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post doctor, invalid id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : \"aa\",\n\"nume\" : \"mircea\",\n\"prenume\" : \"radu\",\n\"specializare\" : \"neurologie\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/aa",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						"aa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post valid doctor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : 149,\n\"nume\" : \"mircea\",\n\"prenume\" : \"radu\",\n\"specializare\" : \"neurologie\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/149",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						"149"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post pacient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"pacientid\" : 228,\n\"nume\" : \"ana\",\n\"prenume\" : \"maria\",\n\"adresa\" : \"strada palat nr 1\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/pacienti/228",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"pacienti",
+						"228"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post programare",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"programareid\" : 339,\n\"costconsultatie\" : 400,\n\"doctorid\" : 222,\n\"pacientid\" : 111\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/339",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"339"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post bad request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : 114,\n\"nume\" : \"patrauceanu\",\n\"prenume\" : \"radu\",\n\"specializare\" : \"cardiologie\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333/doctori",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333",
+						"doctori"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post bad request 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : 114,\n\"nume\" : \"patrauceanu\",\n\"prenume\" : \"radu\",\n\"specializare\" : \"cardiologie\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post bad request 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"doctorid\" : 114,\n\"nume\" : \"patrauceanu\",\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/222",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"222"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - change doctor's name ",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"nume\" : \"patrauceanu\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/111",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						"111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - change patient address",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"costconsultatie\" : 500\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put - change price",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\"costconsultatie\" : 500\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete record that does not exist",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/programari/33355",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"33355"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete record - programari",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/programari/333",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"programari",
+						"333"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete record - pacienti",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/pacienti/222",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"pacienti",
+						"222"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete record - doctori",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8888/doctori/111",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"doctori",
+						"111"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

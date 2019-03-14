@@ -24,7 +24,7 @@ def build_get_select(parameters):
                 query += ' JOIN doctori d ON d.doctorid=p.doctorid WHERE programareid=' + parameters[1]
                 table = 'prog-doctori'
             elif parameters[2] == 'pacienti':
-                query += ' JOIN pacienti p ON p.pacientid=p.pacientid WHERE programareid=' + parameters[1]
+                query += ' JOIN pacienti pp ON pp.pacientid=p.pacientid WHERE programareid=' + parameters[1]
                 table = 'prog-pacienti'
             else:
                 return 0, 0
