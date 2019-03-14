@@ -48,33 +48,31 @@ def initialize_database():
     database.execute(table_programari)
 
 
-def insert_record():
+def insert_record_new():
     connection = sqlite3.connect('database.db')
     db = connection.cursor()
-    db.execute(doctor, doctor_1_values)
-    connection.commit()
-    db.execute(doctor, doctor_2_values)
-    connection.commit()
-    db.execute(doctor, doctor_3_values)
-    connection.commit()
-
-    db.execute(pacient, pacient_1_values)
-    connection.commit()
-    db.execute(pacient, pacient_2_values)
-    connection.commit()
-    db.execute(pacient, pacient_3_values)
-    connection.commit()
-
-    db.execute(programare, programare_1_values)
-    connection.commit()
-    db.execute(programare, programare_2_values)
-    connection.commit()
-    db.execute(programare, programare_3_values)
-    connection.commit()
-    db.execute(programare, programare_4_values)
-    connection.commit()
-
-    connection.commit()
+    # db.execute(doctor, doctor_1_values)
+    # connection.commit()
+    # db.execute(doctor, doctor_2_values)
+    # connection.commit()
+    # db.execute(doctor, doctor_3_values)
+    # connection.commit()
+    #
+    # db.execute(pacient, pacient_1_values)
+    # connection.commit()
+    # db.execute(pacient, pacient_2_values)
+    # connection.commit()
+    # db.execute(pacient, pacient_3_values)
+    # connection.commit()
+    #
+    # db.execute(programare, programare_1_values)
+    # connection.commit()
+    # db.execute(programare, programare_2_values)
+    # connection.commit()
+    # db.execute(programare, programare_3_values)
+    # connection.commit()
+    # db.execute(programare, programare_4_values)
+    # connection.commit()
 
     db.execute('SELECT * FROM doctori')
     doctori = db.fetchall()
@@ -93,6 +91,26 @@ def insert_record():
     connection.close()
 
 
+def insert_record(query, values):
+    connection = sqlite3.connect('database.db')
+    db = connection.cursor()
+    db.execute(query, values)
+    connection.commit()
+    connection.close()
+
+
 def db_main():
     initialize_database()
-    insert_record()
+    insert_record_new()
+    print('db initialized')
+
+
+def interogate_database(query):
+    connection = sqlite3.connect('database.db')
+    db = connection.cursor()
+    db.execute(query)
+    result_set = db.fetchall()
+    connection.close()
+    return result_set
+
+

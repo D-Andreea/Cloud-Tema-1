@@ -1,15 +1,16 @@
-# import http.server
-# import socketserver
-# from request_handler import HttpHandler
-#
-# Handler = HttpHandler
-#
-# with http.server.ThreadingHTTPServer(("", 8888), Handler) as httpd:
-#     print("serving at port", 8888)
-#     httpd.serve_forever()
-
-
+import http.server
+from server import API
 import database
 
+Handler = API
 
 database.db_main()
+
+with http.server.HTTPServer(("", 8888), Handler) as httpd:
+    print("serving at port", 8888)
+    httpd.serve_forever()
+
+
+
+
+

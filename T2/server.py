@@ -1,35 +1,51 @@
+import json
 from http.server import BaseHTTPRequestHandler
-from urllib import parse
+
+import database
+import helper_get
 
 
 class API(BaseHTTPRequestHandler):
-    def get_path(self):
-        args = {}
-        idx = self.path.find('?')
-        if idx >= 0:
-            rpath = self.path[:idx]
-            args = parse.parse_qs(self.path[idx + 1:])
+    def do_GET(self):
+        parameters = self.path.split('/')
+        parameters = list(filter(lambda a: a != "", parameters))
+
+        query, table = helper_get.build_get_select(parameters)
+        if query == 0:
+            status_code = 404
+            answer = 'Could not find what you requested'
         else:
-            rpath = self.path
-        return rpath, args
-
-
-    def do_GET(self):  # do shit here
-        rpath, args = self.get_path()
-
-        print(args)
-        if rpath == '/test':
-            print(args["cifra"])
-
-        answer, status_code = ()
+            answer_array = database.interogate_database(query)
+            answer = list()
+            for line in answer_array:
+                answer_dict = helper_get.transform_array_to_dict(line, table)
+                answer.append(answer_dict)
+            status_code = 200
 
         self.send_response(status_code)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        self.wfile.write(answer.encode())
+        self.wfile.write(json.dumps(answer).encode())
 
+    def do_POST(self):
+        parameters = self.path.split('/')
+        parameters = list(filter(lambda a: a != "", parameters))
 
-    def do_POST(self): # do shit here
-        return 0
+        query, table = helper_get.ostbuild_get_select(parameters)
+        if query == 0:
+            status_code = 404
+            answer = 'Could not find what you requested'
+        else:
+            answer_array = database.interogate_database(query)
+            answer = list()
+            for line in answer_array:
+                answer_dict = helper_get.transform_array_to_dict(line, table)
+                answer.append(answer_dict)
+            status_code = 200
+
+        self.send_response(status_code)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
+        self.wfile.write(json.dumps(answer).encode())
 
 
